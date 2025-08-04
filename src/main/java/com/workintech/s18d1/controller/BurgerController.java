@@ -1,6 +1,7 @@
 package com.workintech.s18d1.controller;
 
 import com.workintech.s18d1.dao.BurgerDao;
+import com.workintech.s18d1.entity.BreadType;
 import com.workintech.s18d1.entity.Burger;
 import com.workintech.s18d1.util.BurgerValidation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,5 +41,19 @@ public class BurgerController {
     public Burger remove (@PathVariable long id){
         return burgerDao.remove(id);
 
+    }
+
+    @GetMapping("/breadType/{breadType}")
+    public List<Burger> getByBreadType(@PathVariable("breadType") String breadType){
+        BreadType btEnum = BreadType.valueOf(breadType);
+        return burgerDao.findByBreadType(btEnum);
+    }
+    @GetMapping("/price/{price}")
+    public List<Burger> getByPrice(@PathVariable("price") Integer price){
+        return burgerDao.findByPrice(price);
+    }
+    @GetMapping("/content/{content}")
+    public List<Burger> getByContent(@PathVariable("content") String content){
+        return burgerDao.findByContent(content);
     }
 }
